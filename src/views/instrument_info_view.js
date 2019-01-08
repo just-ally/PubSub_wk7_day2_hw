@@ -7,6 +7,7 @@ const InstrumentInfoView = function(container){
 InstrumentInfoView.prototype.bindEvents = function(){
   PubSub.subscribe('InstrumentFamilies:instrument-family-found', (event) => {
     const instrumentFamilyObject = event.detail;
+    console.log(instrumentFamilyObject.instruments);
     this.render(instrumentFamilyObject);
   });
 }
@@ -16,11 +17,13 @@ InstrumentInfoView.prototype.render = function(instrumentFamily){
 
   const heading = this.createHeading(instrumentFamily);
   const infoPara = this.createPara(instrumentFamily);
-  // const instrumentList = this.createInfoList(instrumentFamily);
+  const instrumentListIntro = this.createIntro(instrumentFamily);
+  const instrumentList = this.createInfoList(instrumentFamily);
 
   this.container.appendChild(heading);
   this.container.appendChild(infoPara);
-  // this.container.appendChild(instrumentList);
+  this.container.appendChild(instrumentListIntro);
+  this.container.appendChild(instrumentList);
 
 };
 
@@ -34,6 +37,22 @@ InstrumentInfoView.prototype.createPara = function(instrumentFamily){
   const infoPara = document.createElement('p');
   infoPara.textContent = instrumentFamily.description;
   return infoPara;
+};
+
+InstrumentInfoView.prototype.createIntro = function(instrumentFamily){
+  const instrumentListIntro = document.createElement('p');
+  instrumentListIntro.textContent = `Instruments in the ${instrumentFamily.name} family include:`;
+  return instrumentListIntro;
+};
+
+InstrumentInfoView.prototype.createInfoList = function(instrumentFamily){
+  const instrumentsInFamily = document.createElement('ul');
+  instrumentFamily.instruments.forEach((instrument) => {
+    const li = document.createElement('li');
+    li.textContent = instrument;
+    instrumentsInFamily.appendChild(li);
+  });
+  return instrumentsInFamily;
 }
 
 

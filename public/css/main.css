@@ -1,0 +1,21 @@
+body {
+  background: white url('../images/violin.jpg');
+  background-size: cover;
+  font-family: 'Futura';
+}
+
+h1, h2 {
+  color: maroon;
+}
+
+#instrument-family-details {
+  padding-left: 15px;
+}
+
+p {
+  width: 50%;
+}
+
+ul {
+  list-style-type: square;
+}
